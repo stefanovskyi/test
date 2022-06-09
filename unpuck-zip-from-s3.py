@@ -85,6 +85,7 @@ if __name__ == "__main__":
             download_file(s3, zip_filename, local_file_location, s3_object_path, dataflik_bucket)
             extract_zip(temp_folder_for_unzipped_files, local_file_location)
             upload_extracted_content(zip_filename, temp_folder_for_unzipped_files)
+            print("Already working for %s seconds" % (time.time() - start_time))
 
         count = count + 1
 
