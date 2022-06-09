@@ -89,7 +89,7 @@ if __name__ == "__main__":
         count = count + 1
 
         print("\n--------------------------")
-        print(str(count) + " lines out of " + total_files_in_bucket)
+        print(str(count) + " files out of " + total_files_in_bucket)
         print(str(count_zip) + " zip files processed")
 
     end_time = time.time()
