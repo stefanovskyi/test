@@ -14,34 +14,35 @@ def upload_extracted_content(file_name, temp_folder):
     content_in_folder = os.listdir(temp_folder)
 
     for name in content_in_folder:
+        file_full_name = temp_folder + name
+
         if name.endswith('.zip'):
             print(name)
-            file_full_location = temp_folder + name
-            file_size = os.path.getsize(file_full_location) / 1000000
-            os.remove(file_full_location)
-            print('Removed ' + name + ' size in mb ' + str(file_size))
-        else:
-            print('Not a zip file: ' + name)
-            file_full_name = temp_folder + name
-            file_size = os.path.getsize(file_full_name) / 1000000
 
+            remove_file(file_full_name, name)
+        else:
             upload_start_time = time.time()
 
             s3.upload_file(file_full_name, dataflik_bucket, 'attom/raw/' + name)
-            upload_end_time = time.time()
-            upload_duration_in_seconds = upload_end_time - upload_start_time
+
+            upload_duration_in_seconds = time.time() - upload_start_time
             print("Finished uploading %s in %s seconds" % (file_name, upload_duration_in_seconds))
 
-            print("Uploaded: " + name + 'size in mb ' + str(file_size))
-            os.remove(file_full_name)
-            print("Removed: " + name + 'size in mb ' + str(file_size))
+            remove_file(file_full_name, name)
+
+
+def remove_file(file_full_name, name):
+    file_size = os.path.getsize(file_full_name) / 1000000
+    os.remove(file_full_name)
+    print('Removed ' + name + ' size in mb ' + str(file_size))
 
 
 def download_file(s3, file_name, file_location, file_to_download, bucket_name):
     download_start_time = time.time()
+
     s3.download_file(bucket_name, file_to_download, file_location)
-    download_end_time = time.time()
-    download_duration_in_seconds = download_end_time - download_start_time
+
+    download_duration_in_seconds = time.time() - download_start_time
     print("Finished downloading %s in %s seconds" % (file_name, download_duration_in_seconds))
 
 
