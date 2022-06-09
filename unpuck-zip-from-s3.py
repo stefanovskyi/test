@@ -55,15 +55,14 @@ if __name__ == "__main__":
     s3_prefix = 'attom/zipped'
 
     s3 = boto3.client('s3')
-    config = TransferConfig(multipart_threshold=1024 * 25,
+
+    chunk_size = 1024 * 25
+    config = TransferConfig(multipart_threshold=chunk_size,
                             max_concurrency=10,
-                            multipart_chunksize=1024 * 25,
+                            multipart_chunksize=chunk_size,
                             use_threads=True)
 
-    all_objects = s3.list_objects_v2(
-        Bucket=dataflik_bucket,
-        Prefix=s3_prefix,
-        MaxKeys=100)
+    all_objects = s3.list_objects_v2(Bucket=dataflik_bucket, Prefix=s3_prefix, MaxKeys=100)
 
     count = 0
     count_zip = 0
