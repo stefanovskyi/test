@@ -48,8 +48,7 @@ def download_file(s3, file_name, file_location, file_to_download, bucket_name):
 
 
 if __name__ == "__main__":
-    temp_folder_for_unzipped_files = os.path.dirname(__file__) + '/temp/'
-    os.mkdir(temp_folder_for_unzipped_files)
+    temp_folder_for_unzipped_files = '/home/ec2-user/test/temp/'
     print("Temp folder: " + temp_folder_for_unzipped_files)
 
     dataflik_bucket = 'dataflik-data'
