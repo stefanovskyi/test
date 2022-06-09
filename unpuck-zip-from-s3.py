@@ -17,8 +17,6 @@ def upload_extracted_content(file_name, temp_folder):
         file_full_name = temp_folder + name
 
         if name.endswith('.zip'):
-            print(name)
-
             remove_file(file_full_name, name)
         else:
             upload_start_time = time.time()
@@ -78,13 +76,13 @@ if __name__ == "__main__":
         if object_from_s3.endswith('.zip'):
             count_zip = count_zip + 1
             zip_filename = object_from_s3.split('/')[-1]
-
             local_file_location = temp_folder_for_unzipped_files + zip_filename
             s3_object_path = s3_prefix + '/' + zip_filename
 
             download_file(s3, zip_filename, local_file_location, s3_object_path, dataflik_bucket)
             extract_zip(temp_folder_for_unzipped_files, local_file_location)
             upload_extracted_content(zip_filename, temp_folder_for_unzipped_files)
+
             print("Already working for %s seconds" % (time.time() - start_time))
 
         count = count + 1
@@ -93,6 +91,5 @@ if __name__ == "__main__":
         print(str(count) + " files out of " + total_files_in_bucket)
         print(str(count_zip) + " zip files processed")
 
-    end_time = time.time()
-    duration_in_seconds = end_time - start_time
+    duration_in_seconds = time.time() - start_time
     print("Finished unzipping in %s seconds" % duration_in_seconds)
