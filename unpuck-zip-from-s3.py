@@ -46,7 +46,7 @@ def download_file(s3, file_name, file_location, file_to_download, bucket_name):
 
 if __name__ == "__main__":
     start_time = time.time()
-
+    # /temp folder should exist
     temp_folder_for_unzipped_files = '/home/ec2-user/test/temp/'
     print("Temp folder: " + temp_folder_for_unzipped_files)
 
