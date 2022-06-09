@@ -32,7 +32,7 @@ def upload_extracted_content(file_name, temp_folder):
 
 
 def remove_file(file_full_name, name):
-    file_size = os.path.getsize(file_full_name) / 1000000
+    file_size = os.path.getsize(file_full_name) / 1_000_000
     os.remove(file_full_name)
     print('Removed ' + name + ' size in mb ' + str(file_size))
 
