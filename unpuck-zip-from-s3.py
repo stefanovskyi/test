@@ -39,15 +39,15 @@ def upload_extracted_content(file_name, temp_folder):
 
 def download_file(s3, file_name, file_location, file_to_download, bucket_name):
     download_start_time = time.time()
-
     s3.download_file(bucket_name, file_to_download, file_location)
-
     download_end_time = time.time()
     download_duration_in_seconds = download_end_time - download_start_time
     print("Finished downloading %s in %s seconds" % (file_name, download_duration_in_seconds))
 
 
 if __name__ == "__main__":
+    start_time = time.time()
+
     temp_folder_for_unzipped_files = '/home/ec2-user/test/temp/'
     print("Temp folder: " + temp_folder_for_unzipped_files)
 
@@ -90,3 +90,7 @@ if __name__ == "__main__":
 
         print(str(count) + " lines out of " + total_files_in_bucket)
         print(str(count_zip) + " zip files processed")
+
+    end_time = time.time()
+    duration_in_seconds = end_time - start_time
+    print("Finished unzipping in %s seconds" % duration_in_seconds)
